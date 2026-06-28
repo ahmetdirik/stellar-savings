@@ -16,8 +16,8 @@ export function GoalList({ goals, onDelete, onSendSuccess }: Props) {
     return (
       <div className="text-center py-16 text-gray-400">
         <p className="text-4xl mb-3">🪙</p>
-        <p className="text-lg font-medium">Henüz hedef yok</p>
-        <p className="text-sm">İlk hedefinizi oluşturun</p>
+        <p className="text-lg font-medium">No goals yet</p>
+        <p className="text-sm">Create your first goal</p>
       </div>
     );
   }

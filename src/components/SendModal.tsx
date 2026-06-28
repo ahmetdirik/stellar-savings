@@ -48,18 +48,18 @@ export function SendModal({ goal, onSuccess, onClose }: Props) {
       onSuccess(goal.id, tx, parseFloat(amount));
       void refreshBalance();
     } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : "Bilinmeyen hata");
+      setErrorMsg(err instanceof Error ? err.message : "Unknown error");
       setStatus("error");
     }
   }
 
   const statusLabel: Record<SendStatus, string> = {
-    idle: "Gönder",
-    building: "İşlem hazırlanıyor...",
-    signing: "Cüzdanda imzalanıyor...",
-    submitting: "Gönderiliyor...",
-    success: "Gönderildi!",
-    error: "Tekrar Dene",
+    idle: "Send",
+    building: "Building transaction...",
+    signing: "Signing in wallet...",
+    submitting: "Submitting...",
+    success: "Sent!",
+    error: "Retry",
   };
 
   return (
@@ -73,27 +73,27 @@ export function SendModal({ goal, onSuccess, onClose }: Props) {
         </div>
 
         <p className="text-sm text-gray-500">
-          {goal.currentAmount.toFixed(2)} / {goal.targetAmount.toFixed(2)} XLM biriktirildi
+          {goal.currentAmount.toFixed(2)} / {goal.targetAmount.toFixed(2)} XLM saved
         </p>
 
         {status === "success" ? (
           <div className="space-y-3">
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-              <p className="text-green-700 font-semibold">✓ İşlem Başarılı!</p>
+              <p className="text-green-700 font-semibold">✓ Transaction Successful!</p>
               <p className="text-xs text-gray-500 mt-2 font-mono break-all">{hash}</p>
             </div>
             <button
               onClick={onClose}
               className="w-full py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium"
             >
-              Kapat
+              Close
             </button>
           </div>
         ) : (
           <form onSubmit={(e) => void handleSend(e)} className="space-y-4">
             <div className="space-y-1">
               <label htmlFor="sendAmount" className="text-sm font-medium text-gray-700">
-                Miktar (XLM)
+                Amount (XLM)
               </label>
               <input
                 id="sendAmount"

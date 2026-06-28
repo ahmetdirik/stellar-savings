@@ -1,4 +1,4 @@
-# Hedef Kumbarası 🪙
+# Stellar Savings 🪙
 
 A Stellar testnet savings goals dApp. Set XLM savings targets with deadlines, send incremental payments, and track your progress.
 

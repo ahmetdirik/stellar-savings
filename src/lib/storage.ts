@@ -1,6 +1,6 @@
 import type { Goal } from "../types";
 
-const STORAGE_KEY = "hedef-kumbarasi-goals";
+const STORAGE_KEY = "stellar-savings-goals";
 
 export function loadGoals(): Goal[] {
   try {

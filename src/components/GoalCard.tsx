@@ -26,9 +26,9 @@ export function GoalCard({ goal, onSend, onDelete }: Props) {
         <button
           onClick={() => onDelete(goal.id)}
           className="text-xs text-red-400 hover:text-red-600"
-          aria-label="Sil"
+          aria-label="Delete"
         >
-          Sil
+          Delete
         </button>
       </div>
 
@@ -43,11 +43,11 @@ export function GoalCard({ goal, onSend, onDelete }: Props) {
 
       <div className="text-sm">
         {completed ? (
-          <span className="font-semibold text-green-600">✓ Tamamlandı!</span>
+          <span className="font-semibold text-green-600">✓ Completed!</span>
         ) : days < 0 ? (
-          <span className="text-red-500 font-medium">{Math.abs(days)} gün geçti</span>
+          <span className="text-red-500 font-medium">{Math.abs(days)} days overdue</span>
         ) : (
-          <span className="text-gray-500">{days} gün kaldı</span>
+          <span className="text-gray-500">{days} days remaining</span>
         )}
       </div>
 
@@ -56,7 +56,7 @@ export function GoalCard({ goal, onSend, onDelete }: Props) {
           onClick={() => onSend(goal)}
           className="w-full py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
         >
-          XLM Gönder
+          Send XLM
         </button>
       )}
     </div>

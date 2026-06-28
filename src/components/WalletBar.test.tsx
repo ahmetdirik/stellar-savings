@@ -21,7 +21,7 @@ describe("WalletBar", () => {
       disconnect: vi.fn(),
     });
     render(<WalletBar />);
-    expect(screen.getByRole("button", { name: /cüzdanı bağla/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /connect wallet/i })).toBeInTheDocument();
   });
 
   it("calls connect when connect button clicked", () => {
@@ -35,7 +35,7 @@ describe("WalletBar", () => {
       disconnect: vi.fn(),
     });
     render(<WalletBar />);
-    fireEvent.click(screen.getByRole("button", { name: /cüzdanı bağla/i }));
+    fireEvent.click(screen.getByRole("button", { name: /connect wallet/i }));
     expect(connect).toHaveBeenCalledOnce();
   });
 
@@ -64,7 +64,7 @@ describe("WalletBar", () => {
       disconnect,
     });
     render(<WalletBar />);
-    fireEvent.click(screen.getByRole("button", { name: /bağlantıyı kes/i }));
+    fireEvent.click(screen.getByRole("button", { name: /disconnect/i }));
     expect(disconnect).toHaveBeenCalledOnce();
   });
 });

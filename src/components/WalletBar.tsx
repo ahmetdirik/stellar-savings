@@ -6,7 +6,7 @@ export function WalletBar() {
   return (
     <div className="flex items-center justify-between p-4 bg-white shadow-sm rounded-xl mb-6">
       <div className="flex flex-col">
-        <span className="text-xl font-bold text-indigo-600">🪙 Hedef Kumbarası</span>
+        <span className="text-xl font-bold text-indigo-600">🪙 Stellar Savings</span>
         {connected && balance && (
           <span className="text-sm text-gray-500">{parseFloat(balance).toFixed(2)} XLM</span>
         )}
@@ -21,7 +21,7 @@ export function WalletBar() {
             onClick={disconnect}
             className="px-3 py-1.5 text-sm bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
           >
-            Bağlantıyı Kes
+            Disconnect
           </button>
         </div>
       ) : (
@@ -30,7 +30,7 @@ export function WalletBar() {
           disabled={loading}
           className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
         >
-          {loading ? "Bağlanıyor..." : "Cüzdanı Bağla"}
+          {loading ? "Connecting..." : "Connect Wallet"}
         </button>
       )}
     </div>

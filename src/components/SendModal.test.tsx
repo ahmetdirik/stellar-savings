@@ -44,15 +44,15 @@ describe("SendModal", () => {
   it("renders goal name and amount input", () => {
     render(<SendModal goal={mockGoal} onSuccess={vi.fn()} onClose={vi.fn()} />);
     expect(screen.getByText("Laptop")).toBeInTheDocument();
-    expect(screen.getByLabelText(/miktar/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/amount/i)).toBeInTheDocument();
   });
 
   it("shows success state with hash after sending", async () => {
     render(<SendModal goal={mockGoal} onSuccess={vi.fn()} onClose={vi.fn()} />);
-    fireEvent.change(screen.getByLabelText(/miktar/i), {
+    fireEvent.change(screen.getByLabelText(/amount/i), {
       target: { value: "50" },
     });
-    fireEvent.click(screen.getByRole("button", { name: /gönder/i }));
+    fireEvent.click(screen.getByRole("button", { name: /send/i }));
     await waitFor(() => {
       expect(screen.getByText(/tx-hash-abc/)).toBeInTheDocument();
     });
@@ -61,10 +61,10 @@ describe("SendModal", () => {
   it("calls onSuccess with correct args after sending", async () => {
     const onSuccess = vi.fn();
     render(<SendModal goal={mockGoal} onSuccess={onSuccess} onClose={vi.fn()} />);
-    fireEvent.change(screen.getByLabelText(/miktar/i), {
+    fireEvent.change(screen.getByLabelText(/amount/i), {
       target: { value: "50" },
     });
-    fireEvent.click(screen.getByRole("button", { name: /gönder/i }));
+    fireEvent.click(screen.getByRole("button", { name: /send/i }));
     await waitFor(() => {
       expect(onSuccess).toHaveBeenCalledWith(
         "g1",
@@ -77,10 +77,10 @@ describe("SendModal", () => {
   it("shows error message on transaction failure", async () => {
     mockSubmit.mockRejectedValueOnce(new Error("tx_insufficient_balance"));
     render(<SendModal goal={mockGoal} onSuccess={vi.fn()} onClose={vi.fn()} />);
-    fireEvent.change(screen.getByLabelText(/miktar/i), {
+    fireEvent.change(screen.getByLabelText(/amount/i), {
       target: { value: "50" },
     });
-    fireEvent.click(screen.getByRole("button", { name: /gönder/i }));
+    fireEvent.click(screen.getByRole("button", { name: /send/i }));
     await waitFor(() => {
       expect(screen.getByText(/tx_insufficient_balance/)).toBeInTheDocument();
     });

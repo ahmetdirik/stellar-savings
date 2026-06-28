@@ -18,19 +18,19 @@ function AppInner() {
         {!connected ? (
           <div className="text-center py-24 text-gray-400">
             <p className="text-5xl mb-4">🔐</p>
-            <p className="text-lg font-medium">Başlamak için cüzdanınızı bağlayın</p>
+            <p className="text-lg font-medium">Connect your wallet to get started</p>
           </div>
         ) : (
           <>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-700">
-                Hedeflerim ({goals.length})
+                My Goals ({goals.length})
               </h2>
               <button
                 onClick={() => setShowCreate(true)}
                 className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
               >
-                + Yeni Hedef
+                + New Goal
               </button>
             </div>
 
