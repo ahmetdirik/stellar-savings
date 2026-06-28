@@ -40,7 +40,6 @@ export function GoalList({ goals, onDelete, onSendSuccess }: Props) {
           goal={sendingGoal}
           onSuccess={(goalId, tx, amount) => {
             onSendSuccess(goalId, tx, amount);
-            setSendingGoal(null);
           }}
           onClose={() => setSendingGoal(null)}
         />
