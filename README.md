@@ -43,12 +43,17 @@ npm run build
 
 ## Screenshots
 
-<!-- Add screenshots here after testing:
-- Wallet connected state
-- Balance displayed
-- Successful testnet transaction
-- Transaction result shown to user
--->
+### Wallet Connected & Balance Displayed
+![Wallet connected with XLM balance](screenshots/wallet-connected.png)
+
+### Create New Goal
+![Create goal modal with Stellar address](screenshots/wallet-balance.png)
+
+### Transaction Signing
+![Freighter signing popup during XLM transfer](screenshots/transaction-signing.png)
+
+### Transaction Successful
+![Transaction successful with hash confirmation](screenshots/transaction-success.png)
 
 ## Tech Stack
 
