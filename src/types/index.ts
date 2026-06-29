@@ -13,4 +13,6 @@ export interface Goal {
   destinationAddress: string;
   transactions: GoalTransaction[];
   createdAt: string;
+  isPublic: boolean;
+  allowContributions: boolean;
 }

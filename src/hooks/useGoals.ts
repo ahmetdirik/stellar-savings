@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import type { Goal, GoalTransaction } from "../types";
 import { loadGoals, addGoal, updateGoal, deleteGoal } from "../lib/storage";
 
-type CreateGoalData = Omit<Goal, "id" | "currentAmount" | "transactions" | "createdAt">;
+type CreateGoalData = Omit<Goal, "id" | "currentAmount" | "transactions" | "createdAt" | "isPublic" | "allowContributions">;
 
 export function useGoals() {
   const [goals, setGoals] = useState<Goal[]>(() => loadGoals());
@@ -14,6 +14,8 @@ export function useGoals() {
       currentAmount: 0,
       transactions: [],
       createdAt: new Date().toISOString(),
+      isPublic: false,
+      allowContributions: false,
     };
     setGoals(addGoal(goal));
   }, []);
@@ -38,5 +40,13 @@ export function useGoals() {
     setGoals(deleteGoal(id));
   }, []);
 
-  return { goals, createGoal, recordTransaction, removeGoal };
+  const editGoal = useCallback((id: string, updates: Partial<Goal>) => {
+    setGoals((prev) => {
+      const goal = prev.find((g) => g.id === id);
+      if (!goal) return prev;
+      return updateGoal({ ...goal, ...updates });
+    });
+  }, []);
+
+  return { goals, createGoal, recordTransaction, removeGoal, editGoal };
 }

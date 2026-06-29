@@ -38,6 +38,8 @@ describe("useGoals", () => {
         destinationAddress: "GABC",
         transactions: [],
         createdAt: "2026-06-28T00:00:00.000Z",
+        isPublic: false,
+        allowContributions: false,
       },
     ];
     mockStorage.loadGoals.mockReturnValue(stored);
@@ -62,6 +64,8 @@ describe("useGoals", () => {
     expect(addedGoal.currentAmount).toBe(0);
     expect(addedGoal.transactions).toEqual([]);
     expect(typeof addedGoal.id).toBe("string");
+    expect(addedGoal.isPublic).toBe(false);
+    expect(addedGoal.allowContributions).toBe(false);
   });
 
   it("recordTransaction updates currentAmount and appends tx", () => {
@@ -74,6 +78,8 @@ describe("useGoals", () => {
       destinationAddress: "GABC",
       transactions: [],
       createdAt: "2026-06-28T00:00:00.000Z",
+      isPublic: false,
+      allowContributions: false,
     };
     mockStorage.loadGoals.mockReturnValue([goal]);
     mockStorage.updateGoal.mockImplementation((g) => [g]);
@@ -98,5 +104,32 @@ describe("useGoals", () => {
       result.current.removeGoal("abc");
     });
     expect(mockStorage.deleteGoal).toHaveBeenCalledWith("abc");
+  });
+
+  it("editGoal updates specified fields and persists", () => {
+    const goal = {
+      id: "abc",
+      name: "Laptop",
+      targetAmount: 500,
+      currentAmount: 0,
+      targetDate: "2026-12-31",
+      destinationAddress: "GABC",
+      transactions: [],
+      createdAt: "2026-06-28T00:00:00.000Z",
+      isPublic: false,
+      allowContributions: false,
+    };
+    mockStorage.loadGoals.mockReturnValue([goal]);
+    mockStorage.updateGoal.mockImplementation((g) => [g]);
+
+    const { result } = renderHook(() => useGoals());
+    act(() => {
+      result.current.editGoal("abc", { isPublic: true, allowContributions: true });
+    });
+
+    const updatedGoal = mockStorage.updateGoal.mock.calls[0][0];
+    expect(updatedGoal.isPublic).toBe(true);
+    expect(updatedGoal.allowContributions).toBe(true);
+    expect(updatedGoal.name).toBe("Laptop"); // other fields unchanged
   });
 });

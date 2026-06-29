@@ -1,11 +1,18 @@
 import type { Goal } from "../types";
 
-const STORAGE_KEY = "stellar-savings-goals";
+const STORAGE_KEY = "hedef-kumbarasi-goals";
 
 export function loadGoals(): Goal[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as Goal[]) : [];
+    if (!raw) return [];
+    const goals = JSON.parse(raw) as Goal[];
+    // Backward compatibility: old records don't have isPublic/allowContributions, fill with false
+    return goals.map((g) => ({
+      isPublic: false,
+      allowContributions: false,
+      ...g,
+    }));
   } catch {
     return [];
   }
