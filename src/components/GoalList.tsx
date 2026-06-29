@@ -1,15 +1,15 @@
 import { useState } from "react";
-import type { Goal, GoalTransaction } from "../types";
+import type { Goal } from "../types";
 import { GoalCard } from "./GoalCard";
 import { SendModal } from "./SendModal";
+import { useGoals } from "../hooks/useGoals";
 
 interface Props {
   goals: Goal[];
-  onDelete: (id: string) => void;
-  onSendSuccess: (goalId: string, tx: GoalTransaction, amount: number) => void;
 }
 
-export function GoalList({ goals, onDelete, onSendSuccess }: Props) {
+export function GoalList({ goals }: Props) {
+  const { removeGoal, recordTransaction } = useGoals();
   const [sendingGoal, setSendingGoal] = useState<Goal | null>(null);
 
   if (goals.length === 0) {
@@ -30,7 +30,7 @@ export function GoalList({ goals, onDelete, onSendSuccess }: Props) {
             key={goal.id}
             goal={goal}
             onSend={setSendingGoal}
-            onDelete={onDelete}
+            onDelete={removeGoal}
           />
         ))}
       </div>
@@ -39,7 +39,7 @@ export function GoalList({ goals, onDelete, onSendSuccess }: Props) {
         <SendModal
           goal={sendingGoal}
           onSuccess={(goalId, tx, amount) => {
-            onSendSuccess(goalId, tx, amount);
+            recordTransaction(goalId, tx, amount);
           }}
           onClose={() => setSendingGoal(null)}
         />
