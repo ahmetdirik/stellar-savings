@@ -52,7 +52,7 @@ export function GoalDetailPage() {
   const completed = goal.currentAmount >= goal.targetAmount;
 
   function handleDelete() {
-    removeGoal(goal.id);
+    removeGoal(goal!.id);
     navigate("/");
   }
 

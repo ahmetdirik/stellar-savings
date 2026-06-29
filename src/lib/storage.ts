@@ -9,9 +9,9 @@ export function loadGoals(): Goal[] {
     const goals = JSON.parse(raw) as Goal[];
     // Backward compatibility: old records don't have isPublic/allowContributions, fill with false
     return goals.map((g) => ({
-      isPublic: false,
-      allowContributions: false,
       ...g,
+      isPublic: g.isPublic ?? false,
+      allowContributions: g.allowContributions ?? false,
     }));
   } catch {
     return [];

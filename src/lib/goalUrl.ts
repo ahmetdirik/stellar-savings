@@ -17,13 +17,21 @@ const REQUIRED_KEYS: (keyof PublicGoalSnapshot)[] = [
 ];
 
 export function encodeGoalUrl(goal: PublicGoalSnapshot): string {
-  return btoa(JSON.stringify(goal));
+  // URL-safe base64: replace + → -, / → _, strip = padding
+  return btoa(JSON.stringify(goal))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=/g, "");
 }
 
 export function decodeGoalUrl(raw: string): PublicGoalSnapshot {
   let parsed: unknown;
   try {
-    parsed = JSON.parse(atob(raw));
+    // Restore URL-safe base64 → standard base64, add padding
+    const base64 = raw.replace(/-/g, "+").replace(/_/g, "/");
+    const padding = (4 - (base64.length % 4)) % 4;
+    const padded = base64 + "=".repeat(padding);
+    parsed = JSON.parse(atob(padded));
   } catch {
     throw new Error("INVALID_PAYLOAD");
   }
