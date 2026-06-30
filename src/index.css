@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+  --color-bg: #0F0A1E;
+  --color-surface: #1A1035;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-violet: #7C5AE8;
+  --color-violet-dim: #3D2A8A;
+  --color-blue-acc: #5B8DEF;
+  --color-text: #F0EAFF;
+  --color-muted: #9B8EC4;
+  --color-faint: #6B5FA8;
+}

@@ -4,17 +4,18 @@ interface Props {
 
 export function ProgressBar({ percent }: Props) {
   const clamped = Math.min(100, Math.max(0, percent));
-  const color =
+
+  const fillClass =
     clamped >= 100
-      ? "bg-green-500"
+      ? "bg-gradient-to-r from-green-400 to-emerald-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"
       : clamped >= 50
-      ? "bg-indigo-500"
-      : "bg-amber-400";
+      ? "bg-gradient-to-r from-violet-500 to-blue-400 shadow-[0_0_8px_rgba(124,90,232,0.6)]"
+      : "bg-gradient-to-r from-violet-500 to-indigo-400 shadow-[0_0_8px_rgba(124,90,232,0.4)]";
 
   return (
-    <div className="w-full bg-gray-100 rounded-full h-2.5">
+    <div className="w-full bg-white/10 rounded-full h-3">
       <div
-        className={`${color} h-2.5 rounded-full transition-all duration-500`}
+        className={`${fillClass} h-3 rounded-full transition-all duration-500`}
         style={{ width: `${clamped}%` }}
       />
     </div>

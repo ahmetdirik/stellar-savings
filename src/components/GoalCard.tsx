@@ -22,12 +22,12 @@ export function GoalCard({ goal }: Props) {
   return (
     <button
       onClick={() => navigate(`/goal/${goal.id}`)}
-      className="w-full text-left bg-white rounded-2xl shadow-sm p-5 space-y-4 hover:shadow-md transition-shadow cursor-pointer"
+      className="w-full text-left backdrop-blur-xl bg-white/5 border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] p-5 space-y-4 hover:bg-white/[0.08] transition-colors cursor-pointer"
     >
       <div className="flex items-start justify-between">
-        <h3 className="font-semibold text-gray-800 text-lg">{goal.name}</h3>
+        <h3 className="font-semibold text-[#F0EAFF] text-lg">{goal.name}</h3>
         {goal.isPublic && (
-          <span className="text-xs text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">
+          <span className="text-xs text-violet-300 bg-violet-900/40 border border-violet-700/40 px-2 py-0.5 rounded-full">
             Public
           </span>
         )}
@@ -35,9 +35,9 @@ export function GoalCard({ goal }: Props) {
 
       <ProgressBar percent={percent} />
 
-      <div className="flex justify-between text-sm text-gray-600">
+      <div className="flex justify-between text-sm text-[#9B8EC4]">
         <span>
-          <strong>{goal.currentAmount.toFixed(2)}</strong> /{" "}
+          <strong className="text-[#F0EAFF]">{goal.currentAmount.toFixed(2)}</strong> /{" "}
           {goal.targetAmount.toFixed(2)} XLM
         </span>
         <span>{Math.round(percent)}%</span>
@@ -45,13 +45,13 @@ export function GoalCard({ goal }: Props) {
 
       <div className="text-sm">
         {completed ? (
-          <span className="font-semibold text-green-600">Completed!</span>
+          <span className="font-semibold text-green-400">Completed!</span>
         ) : days < 0 ? (
-          <span className="text-red-500 font-medium">
+          <span className="text-red-400 font-medium">
             {Math.abs(days)} days overdue
           </span>
         ) : (
-          <span className="text-gray-500">{days} days remaining</span>
+          <span className="text-[#6B5FA8]">{days} days remaining</span>
         )}
       </div>
     </button>

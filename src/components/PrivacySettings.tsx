@@ -34,7 +34,6 @@ export function PrivacySettings({ goal, onUpdate }: Props) {
     try {
       await navigator.clipboard.writeText(url);
     } catch {
-      // fallback: eski tarayıcılar
       const el = document.createElement("input");
       el.value = url;
       document.body.appendChild(el);
@@ -47,36 +46,36 @@ export function PrivacySettings({ goal, onUpdate }: Props) {
   }
 
   return (
-    <div className="space-y-4 p-4 bg-gray-50 rounded-xl">
-      <h3 className="text-sm font-semibold text-gray-700">Privacy Settings</h3>
+    <div className="space-y-4 p-4 backdrop-blur-xl bg-white/5 border border-white/[0.08] rounded-xl">
+      <h3 className="text-sm font-semibold text-[#F0EAFF]">Privacy Settings</h3>
 
       <label className="flex items-center justify-between cursor-pointer">
-        <span className="text-sm text-gray-600">Make public</span>
+        <span className="text-sm text-[#9B8EC4]">Make public</span>
         <input
           type="checkbox"
           checked={goal.isPublic}
           onChange={handlePublicToggle}
           aria-label="Make public"
-          className="w-4 h-4 accent-indigo-600"
+          className="w-4 h-4 accent-[#7C5AE8]"
         />
       </label>
 
       {goal.isPublic && (
         <>
           <label className="flex items-center justify-between cursor-pointer">
-            <span className="text-sm text-gray-600">Allow contributions</span>
+            <span className="text-sm text-[#9B8EC4]">Allow contributions</span>
             <input
               type="checkbox"
               checked={goal.allowContributions}
               onChange={handleContributionsToggle}
               aria-label="Allow contributions"
-              className="w-4 h-4 accent-indigo-600"
+              className="w-4 h-4 accent-[#7C5AE8]"
             />
           </label>
 
           <button
             onClick={() => void handleCopyLink()}
-            className="w-full py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+            className="w-full py-2 text-sm bg-gradient-to-r from-[#7C5AE8] to-[#5B8DEF] text-white rounded-lg hover:opacity-90 transition-opacity"
           >
             {copied ? "Copied!" : "Copy Link"}
           </button>

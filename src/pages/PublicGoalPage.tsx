@@ -22,7 +22,6 @@ export function PublicGoalPage() {
   const [txHash, setTxHash] = useState("");
   const [sendError, setSendError] = useState("");
 
-  // URL'den snapshot decode et
   useEffect(() => {
     const raw = searchParams.get("d");
     if (!raw) {
@@ -36,7 +35,6 @@ export function PublicGoalPage() {
     }
   }, [searchParams]);
 
-  // Horizon'dan gerçek zamanlı bakiye çek
   useEffect(() => {
     if (!snapshot) return;
     horizon
@@ -52,11 +50,11 @@ export function PublicGoalPage() {
 
   if (decodeError) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#0F0A1E] flex items-center justify-center p-4">
         <div className="text-center space-y-2">
           <p className="text-xl">⚠️</p>
-          <p className="font-semibold text-gray-700">Invalid or broken link</p>
-          <p className="text-sm text-gray-400">This goal link is invalid or has expired.</p>
+          <p className="font-semibold text-[#F0EAFF]">Invalid or broken link</p>
+          <p className="text-sm text-[#6B5FA8]">This goal link is invalid or has expired.</p>
         </div>
       </div>
     );
@@ -77,7 +75,6 @@ export function PublicGoalPage() {
       setSendStatus("error");
       return;
     }
-    // Savunma: address decode aşamasında doğrulandı ama tekrar kontrol
     if (!StellarSdk.StrKey.isValidEd25519PublicKey(snapshot.destinationAddress)) {
       setSendError("Invalid destination address");
       setSendStatus("error");
@@ -121,19 +118,22 @@ export function PublicGoalPage() {
     error: "Retry",
   };
 
+  const inputClass =
+    "w-full bg-white/5 border border-white/[0.08] text-[#F0EAFF] placeholder:text-[#6B5FA8] rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7C5AE8] focus:border-[#7C5AE8] disabled:opacity-50 transition-colors";
+
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-sm p-6 w-full max-w-md space-y-4">
+    <div className="min-h-screen bg-[#0F0A1E] flex items-center justify-center p-4">
+      <div className="backdrop-blur-xl bg-white/5 border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] p-6 w-full max-w-md space-y-4">
         <div className="text-center space-y-1">
-          <p className="text-xs text-gray-400 uppercase tracking-wide">Savings Goal</p>
-          <h1 className="text-2xl font-bold text-gray-800">{snapshot.name}</h1>
+          <p className="text-xs text-[#6B5FA8] uppercase tracking-wide">Savings Goal</p>
+          <h1 className="text-2xl font-bold text-[#F0EAFF]">{snapshot.name}</h1>
         </div>
 
         <ProgressBar percent={percent} />
 
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-[#9B8EC4]">
           <span>
-            <strong>
+            <strong className="text-[#F0EAFF]">
               {currentAmount !== null ? currentAmount.toFixed(2) : "—"}
             </strong>{" "}
             / {snapshot.targetAmount.toFixed(2)} XLM
@@ -141,7 +141,7 @@ export function PublicGoalPage() {
           <span>{Math.round(percent)}%</span>
         </div>
 
-        <p className="text-sm text-center text-gray-400">
+        <p className="text-sm text-center text-[#6B5FA8]">
           Target: {new Date(snapshot.targetDate).toLocaleDateString("en-GB", {
             day: "numeric", month: "long", year: "numeric",
           })}
@@ -151,7 +151,7 @@ export function PublicGoalPage() {
           <button
             onClick={() => setShowContribute(true)}
             aria-label="Contribute"
-            className="w-full py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+            className="w-full py-2 bg-gradient-to-r from-[#7C5AE8] to-[#5B8DEF] text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
           >
             Contribute
           </button>
@@ -162,7 +162,7 @@ export function PublicGoalPage() {
             {!connected && (
               <button
                 onClick={() => void connect()}
-                className="w-full py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200 transition-colors"
+                className="w-full py-2 bg-white/5 border border-white/10 text-[#9B8EC4] text-sm rounded-lg hover:bg-white/10 transition-colors"
               >
                 Connect Wallet
               </button>
@@ -171,7 +171,7 @@ export function PublicGoalPage() {
             {connected && sendStatus !== "success" && (
               <form onSubmit={(e) => void handleSend(e)} className="space-y-3">
                 <div className="space-y-1">
-                  <label htmlFor="contribAmount" className="text-sm font-medium text-gray-700">
+                  <label htmlFor="contribAmount" className="text-sm font-medium text-[#9B8EC4]">
                     Amount (XLM)
                   </label>
                   <input
@@ -184,12 +184,12 @@ export function PublicGoalPage() {
                     placeholder="10"
                     aria-label="Amount"
                     disabled={sendStatus !== "idle" && sendStatus !== "error"}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 disabled:opacity-50"
+                    className={inputClass}
                     required
                   />
                 </div>
                 {sendStatus === "error" && (
-                  <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-2">
+                  <p className="text-sm text-red-400 bg-red-900/20 border border-red-800/40 rounded-lg p-2">
                     {sendError}
                   </p>
                 )}
@@ -197,7 +197,7 @@ export function PublicGoalPage() {
                   type="submit"
                   aria-label="Send"
                   disabled={sendStatus !== "idle" && sendStatus !== "error"}
-                  className="w-full py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+                  className="w-full py-2 bg-gradient-to-r from-[#7C5AE8] to-[#5B8DEF] text-white text-sm font-medium rounded-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
                 >
                   {statusLabel[sendStatus]}
                 </button>
@@ -205,9 +205,9 @@ export function PublicGoalPage() {
             )}
 
             {sendStatus === "success" && (
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center space-y-1">
-                <p className="text-green-700 font-semibold">Contribution sent!</p>
-                <p className="text-xs font-mono text-gray-500 break-all">{txHash}</p>
+              <div className="bg-green-900/20 border border-green-800/40 rounded-lg p-4 text-center space-y-1">
+                <p className="text-green-400 font-semibold">Contribution sent!</p>
+                <p className="text-xs font-mono text-[#6B5FA8] break-all">{txHash}</p>
               </div>
             )}
           </>

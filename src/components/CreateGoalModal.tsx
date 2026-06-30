@@ -29,14 +29,17 @@ export function CreateGoalModal({ onSubmit, onClose }: Props) {
     });
   }
 
+  const inputClass =
+    "w-full bg-white/5 border border-white/[0.08] text-[#F0EAFF] placeholder:text-[#6B5FA8] rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7C5AE8] focus:border-[#7C5AE8] transition-colors";
+
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 space-y-4">
-        <h2 className="text-xl font-bold text-gray-800">Create New Goal</h2>
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="backdrop-blur-xl bg-[#1A1035]/90 border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] w-full max-w-md p-6 space-y-4">
+        <h2 className="text-xl font-bold text-[#F0EAFF]">Create New Goal</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
-            <label htmlFor="name" className="text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="text-sm font-medium text-[#9B8EC4]">
               Goal Name
             </label>
             <input
@@ -45,13 +48,13 @@ export function CreateGoalModal({ onSubmit, onClose }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. New Laptop"
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className={inputClass}
               required
             />
           </div>
 
           <div className="space-y-1">
-            <label htmlFor="targetAmount" className="text-sm font-medium text-gray-700">
+            <label htmlFor="targetAmount" className="text-sm font-medium text-[#9B8EC4]">
               Target Amount (XLM)
             </label>
             <input
@@ -62,13 +65,13 @@ export function CreateGoalModal({ onSubmit, onClose }: Props) {
               value={targetAmount}
               onChange={(e) => setTargetAmount(e.target.value)}
               placeholder="500"
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className={inputClass}
               required
             />
           </div>
 
           <div className="space-y-1">
-            <label htmlFor="targetDate" className="text-sm font-medium text-gray-700">
+            <label htmlFor="targetDate" className="text-sm font-medium text-[#9B8EC4]">
               Target Date
             </label>
             <input
@@ -76,13 +79,13 @@ export function CreateGoalModal({ onSubmit, onClose }: Props) {
               type="date"
               value={targetDate}
               onChange={(e) => setTargetDate(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className={inputClass}
               required
             />
           </div>
 
           <div className="space-y-1">
-            <label htmlFor="destinationAddress" className="text-sm font-medium text-gray-700">
+            <label htmlFor="destinationAddress" className="text-sm font-medium text-[#9B8EC4]">
               Stellar Address (Savings Wallet)
             </label>
             <input
@@ -91,7 +94,7 @@ export function CreateGoalModal({ onSubmit, onClose }: Props) {
               value={destinationAddress}
               onChange={(e) => setDestinationAddress(e.target.value)}
               placeholder="G..."
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className={`${inputClass} font-mono`}
               required
             />
           </div>
@@ -100,13 +103,13 @@ export function CreateGoalModal({ onSubmit, onClose }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2 border border-gray-200 text-gray-600 rounded-lg text-sm hover:bg-gray-50 transition-colors"
+              className="flex-1 py-2 border border-white/10 text-[#9B8EC4] rounded-lg text-sm hover:bg-white/5 transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+              className="flex-1 py-2 bg-gradient-to-r from-[#7C5AE8] to-[#5B8DEF] text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Create
             </button>

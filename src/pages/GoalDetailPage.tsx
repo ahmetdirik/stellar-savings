@@ -33,12 +33,12 @@ export function GoalDetailPage() {
 
   if (!goal) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#0F0A1E] flex items-center justify-center">
         <div className="text-center space-y-4">
-          <p className="text-gray-500">Goal not found</p>
+          <p className="text-[#9B8EC4]">Goal not found</p>
           <button
             onClick={() => navigate("/")}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm"
+            className="px-4 py-2 bg-gradient-to-r from-[#7C5AE8] to-[#5B8DEF] text-white rounded-lg text-sm hover:opacity-90 transition-opacity"
           >
             Back to Home
           </button>
@@ -57,21 +57,21 @@ export function GoalDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#0F0A1E]">
       <div className="max-w-2xl mx-auto p-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate("/")}
-            className="text-gray-400 hover:text-gray-600 text-sm"
+            className="text-[#6B5FA8] hover:text-[#9B8EC4] text-sm transition-colors"
           >
             ← Back
           </button>
-          <h1 className="text-xl font-bold text-gray-800 flex-1">{goal.name}</h1>
+          <h1 className="text-xl font-bold text-[#F0EAFF] flex-1">{goal.name}</h1>
           <button
             onClick={() => setShowSettings(!showSettings)}
             aria-label="Settings"
-            className="text-gray-400 hover:text-gray-600"
+            className="text-[#6B5FA8] hover:text-[#9B8EC4] transition-colors"
           >
             ⚙
           </button>
@@ -90,9 +90,9 @@ export function GoalDetailPage() {
 
         {/* Overview */}
         {activeTab === "overview" && (
-          <div className="bg-white rounded-2xl shadow-sm p-5 space-y-4">
+          <div className="backdrop-blur-xl bg-white/5 border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] p-5 space-y-4">
             <ProgressBar percent={percent} />
-            <div className="flex justify-between text-sm text-gray-600">
+            <div className="flex justify-between text-sm text-[#9B8EC4]">
               <span>
                 {goal.currentAmount.toFixed(2)} / {goal.targetAmount.toFixed(2)} XLM
               </span>
@@ -102,21 +102,21 @@ export function GoalDetailPage() {
             {connected && !completed && (
               <button
                 onClick={() => setShowSend(true)}
-                className="w-full py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+                className="w-full py-2 bg-gradient-to-r from-[#7C5AE8] to-[#5B8DEF] text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
               >
                 Send XLM
               </button>
             )}
 
             {completed && (
-              <p className="text-center text-green-600 font-semibold">
+              <p className="text-center text-green-400 font-semibold">
                 Goal Completed!
               </p>
             )}
 
             <button
               onClick={handleDelete}
-              className="w-full py-2 text-sm text-red-500 hover:text-red-700 transition-colors"
+              className="w-full py-2 text-sm text-red-400/70 hover:text-red-400 transition-colors"
             >
               Delete Goal
             </button>

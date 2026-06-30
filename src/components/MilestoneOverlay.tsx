@@ -23,16 +23,21 @@ export function MilestoneOverlay({ threshold, onClose }: Props) {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl p-8 text-center max-w-sm w-full space-y-4">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+      <div className="backdrop-blur-xl bg-white/5 border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] p-8 text-center max-w-sm w-full space-y-4">
         <p className="text-6xl">🎉</p>
-        <p className="text-2xl font-bold text-indigo-700">{threshold}%</p>
-        <p className="text-gray-600">
+        <p
+          className="text-4xl font-bold text-[#7C5AE8]"
+          style={{ textShadow: "0 0 32px rgba(124,90,232,0.5)" }}
+        >
+          {threshold}%
+        </p>
+        <p className="text-[#9B8EC4]">
           {MILESTONE_LABELS[threshold] ?? "Milestone reached!"}
         </p>
         <button
           onClick={onClose}
-          className="w-full py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+          className="w-full py-2 bg-gradient-to-r from-[#7C5AE8] to-[#5B8DEF] text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
         >
           Continue
         </button>
