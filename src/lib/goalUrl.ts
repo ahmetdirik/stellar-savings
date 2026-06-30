@@ -17,8 +17,12 @@ const REQUIRED_KEYS: (keyof PublicGoalSnapshot)[] = [
 ];
 
 export function encodeGoalUrl(goal: PublicGoalSnapshot): string {
+  // UTF-8 aware encoding for Unicode characters (Turkish, etc.)
+  const json = JSON.stringify(goal);
+  const bytes = new TextEncoder().encode(json);
+  const binary = String.fromCharCode(...bytes);
   // URL-safe base64: replace + → -, / → _, strip = padding
-  return btoa(JSON.stringify(goal))
+  return btoa(binary)
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
     .replace(/=/g, "");
@@ -31,7 +35,10 @@ export function decodeGoalUrl(raw: string): PublicGoalSnapshot {
     const base64 = raw.replace(/-/g, "+").replace(/_/g, "/");
     const padding = (4 - (base64.length % 4)) % 4;
     const padded = base64 + "=".repeat(padding);
-    parsed = JSON.parse(atob(padded));
+    // UTF-8 aware decoding for Unicode characters (Turkish, etc.)
+    const binary = atob(padded);
+    const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+    parsed = JSON.parse(new TextDecoder().decode(bytes));
   } catch {
     throw new Error("INVALID_PAYLOAD");
   }

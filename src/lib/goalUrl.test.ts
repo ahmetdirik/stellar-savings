@@ -27,6 +27,12 @@ describe("encodeGoalUrl / decodeGoalUrl round-trip", () => {
     expect(decoded.name.length).toBe(100);
     expect(decoded.name).toBe("A".repeat(100));
   });
+
+  it("round-trips goal names with Turkish characters", () => {
+    const snap = { ...valid, name: "Şehir Tatili" };
+    const decoded = decodeGoalUrl(encodeGoalUrl(snap));
+    expect(decoded.name).toBe("Şehir Tatili");
+  });
 });
 
 describe("decodeGoalUrl — hata durumları", () => {
